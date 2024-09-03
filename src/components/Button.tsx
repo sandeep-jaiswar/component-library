@@ -1,4 +1,5 @@
 import React from "react";
+import "../index.css";
 
 type ButtonVariant = "filled" | "tinted" | "gray";
 type ButtonColor = "blue" | "green" | "red" | "yellow" | "gray";
@@ -45,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button className={buttonClasses} {...props}>
       {startIcon && <span className="mr-2">{startIcon}</span>}
-      {children}
+      {children}Test
       {endIcon && <span className="ml-2">{endIcon}</span>}
     </button>
   );
