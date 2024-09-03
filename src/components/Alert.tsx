@@ -19,7 +19,9 @@ const Alert: React.FC<AlertProps> = ({ variant, title, message, onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className={`w-80 rounded-2xl ${variantClasses[variant]} shadow-lg overflow-hidden`}>
+      <div
+        className={`w-80 rounded-2xl ${variantClasses[variant]} shadow-lg overflow-hidden`}
+      >
         <div className="px-4 py-5">
           <h3 className="text-lg font-semibold text-center mb-2">{title}</h3>
           {message && <p className="text-sm text-center">{message}</p>}

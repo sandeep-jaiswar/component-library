@@ -9,7 +9,6 @@ export interface ButtonProps
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
-  
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
 }
