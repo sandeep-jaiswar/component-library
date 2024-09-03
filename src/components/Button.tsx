@@ -1,13 +1,7 @@
 import React from "react";
 
-type ButtonVariant = "contained" | "outlined" | "text";
-type ButtonColor =
-  | "primary"
-  | "secondary"
-  | "error"
-  | "warning"
-  | "info"
-  | "success";
+type ButtonVariant = "filled" | "tinted" | "gray";
+type ButtonColor = "blue" | "green" | "red" | "yellow" | "gray";
 type ButtonSize = "small" | "medium" | "large";
 
 export interface ButtonProps
@@ -21,8 +15,8 @@ export interface ButtonProps
 }
 
 const Button: React.FC<ButtonProps> = ({
-  variant = "contained",
-  color = "primary",
+  variant = "filled",
+  color = "blue",
   size = "medium",
   startIcon,
   endIcon,
@@ -31,18 +25,18 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses =
-    "font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors";
+    "font-semibold rounded-full focus:outline-none active:opacity-80 transition-all duration-200";
 
   const variantClasses = {
-    contained: `bg-${color}-600 text-white hover:bg-${color}-700 focus:ring-${color}-500`,
-    outlined: `border border-${color}-600 text-${color}-600 hover:bg-${color}-50 focus:ring-${color}-500`,
-    text: `text-${color}-600 hover:bg-${color}-50 focus:ring-${color}-500`,
+    filled: `bg-${color}-500 text-white`,
+    tinted: `bg-${color}-100 text-${color}-500`,
+    gray: "bg-gray-200 text-gray-800",
   };
 
   const sizeClasses = {
-    small: "px-2.5 py-1.5 text-xs",
+    small: "px-3 py-1.5 text-xs",
     medium: "px-4 py-2 text-sm",
-    large: "px-6 py-3 text-base",
+    large: "px-5 py-2.5 text-base",
   };
 
   const buttonClasses = `${baseClasses} ${variantClasses[variant]} ${
