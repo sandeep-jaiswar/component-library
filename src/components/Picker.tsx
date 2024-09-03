@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
 
-interface DatePickerProps {
+export interface DatePickerProps {
   onChange: (date: Date) => void;
   initialDate?: Date;
 }
