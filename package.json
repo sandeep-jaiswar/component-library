@@ -1,45 +1,10 @@
 {
-  "name": "@sandeep-jaiswar/component-library",
-  "version": "0.0.4",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
-    },
-    "./Button": {
-      "import": "./dist/components/Button.js",
-      "require": "./dist/components/Button.js",
-      "types": "./dist/components/Button.d.ts"
-    },
-    "./Input": {
-      "import": "./dist/components/Input.js",
-      "require": "./dist/components/Input.js",
-      "types": "./dist/components/Input.d.ts"
-    }
+  "author": "@sandeep-jaiswar",
+  "dependencies": {
+    "@sandeep-jaiswar/component-library": "file:",
+    "framer-motion": "^11.5.2"
   },
-  "scripts": {
-    "build": "webpack --mode production && tsc",
-    "start": "webpack serve --mode development",
-    "prepublishOnly": "npm run build",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_5f434c8fb01db7e"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "description": "",
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
@@ -77,8 +42,108 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
-  "dependencies": {
-    "@sandeep-jaiswar/component-library": "file:",
-    "framer-motion": "^11.5.2"
-  }
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./Accordion": {
+      "import": "./dist/components/Accordion.js",
+      "require": "./dist/components/Accordion.js",
+      "types": "./dist/components/Accordion.d.ts"
+    },
+    "./Alert": {
+      "import": "./dist/components/Alert.js",
+      "require": "./dist/components/Alert.js",
+      "types": "./dist/components/Alert.d.ts"
+    },
+    "./Button": {
+      "import": "./dist/components/Button.js",
+      "require": "./dist/components/Button.js",
+      "types": "./dist/components/Button.d.ts"
+    },
+    "./Card": {
+      "import": "./dist/components/Card.js",
+      "require": "./dist/components/Card.js",
+      "types": "./dist/components/Card.d.ts"
+    },
+    "./Dropdown": {
+      "import": "./dist/components/Dropdown.js",
+      "require": "./dist/components/Dropdown.js",
+      "types": "./dist/components/Dropdown.d.ts"
+    },
+    "./Form": {
+      "import": "./dist/components/Form.js",
+      "require": "./dist/components/Form.js",
+      "types": "./dist/components/Form.d.ts"
+    },
+    "./Input": {
+      "import": "./dist/components/Input.js",
+      "require": "./dist/components/Input.js",
+      "types": "./dist/components/Input.d.ts"
+    },
+    "./Modal": {
+      "import": "./dist/components/Modal.js",
+      "require": "./dist/components/Modal.js",
+      "types": "./dist/components/Modal.d.ts"
+    },
+    "./Navbar": {
+      "import": "./dist/components/Navbar.js",
+      "require": "./dist/components/Navbar.js",
+      "types": "./dist/components/Navbar.d.ts"
+    },
+    "./Pagination": {
+      "import": "./dist/components/Pagination.js",
+      "require": "./dist/components/Pagination.js",
+      "types": "./dist/components/Pagination.d.ts"
+    },
+    "./Picker": {
+      "import": "./dist/components/Picker.js",
+      "require": "./dist/components/Picker.js",
+      "types": "./dist/components/Picker.d.ts"
+    },
+    "./Spacer": {
+      "import": "./dist/components/Spacer.js",
+      "require": "./dist/components/Spacer.js",
+      "types": "./dist/components/Spacer.d.ts"
+    },
+    "./Tabs": {
+      "import": "./dist/components/Tabs.js",
+      "require": "./dist/components/Tabs.js",
+      "types": "./dist/components/Tabs.d.ts"
+    },
+    "./Toggle": {
+      "import": "./dist/components/Toggle.js",
+      "require": "./dist/components/Toggle.js",
+      "types": "./dist/components/Toggle.d.ts"
+    },
+    "./Tooltip": {
+      "import": "./dist/components/Tooltip.js",
+      "require": "./dist/components/Tooltip.js",
+      "types": "./dist/components/Tooltip.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "license": "ISC",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@sandeep-jaiswar/component-library",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "build": "webpack --mode production && tsc",
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_5f434c8fb01db7e",
+    "prepublishOnly": "npm run build",
+    "start": "webpack serve --mode development",
+    "storybook": "storybook dev -p 6006"
+  },
+  "types": "dist/index.d.ts",
+  "version": "0.0.5"
 }
