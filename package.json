@@ -78,6 +78,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@sandeep-jaiswar/component-library": "file:"
+    "@sandeep-jaiswar/component-library": "file:",
+    "framer-motion": "^11.5.2"
   }
 }
