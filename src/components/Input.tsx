@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import "../index.css";
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -6,6 +6,21 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
+
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(false);
+    setHasValue(e.target.value !== "");
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasValue(e.target.value !== "");
+    if (props.onChange) {
+      props.onChange(e);
+    }
+  };
+
   return (
     <div className="mb-4">
       <div className="relative">
@@ -16,12 +31,15 @@ const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
             ${error ? "focus:border-red-500" : "focus:border-blue-500"}
           `}
           placeholder=" "
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChange={handleChange}
           {...props}
         />
         <label
           className={`
-            absolute left-4 top-3 text-gray-500 transition-all duration-200 pointer-events-none
-            ${props.value || props.placeholder ? "text-xs -top-2.5 text-blue-500" : ""}
+            absolute left-4 text-gray-500 transition-all duration-200 pointer-events-none
+            ${(isFocused || hasValue) ? "text-xs top-0 text-blue-500" : "top-3"}
           `}
         >
           {label}
