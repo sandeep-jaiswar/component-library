@@ -1,6 +1,7 @@
 import React from "react";
+import { useTheme } from "../hooks/useTheme";
 
-interface CardProps {
+export interface CardProps {
   title: string;
   children: string;
   imageUrl?: string;
@@ -15,10 +16,13 @@ const Card: React.FC<CardProps> = ({
   onClick,
   footer,
 }) => {
+  const theme = useTheme();
+
   return (
     <div
-      className="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
+      className={`bg-${theme.palette.background} rounded-${theme.shape.borderRadius} shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105`}
       onClick={onClick}
+      style={{ borderRadius: `${theme.shape.borderRadius}px` }}
     >
       {imageUrl && (
         <div className="relative h-48">
@@ -31,10 +35,10 @@ const Card: React.FC<CardProps> = ({
         </div>
       )}
       <div className="p-6">
-        <h3 className="font-semibold text-xl mb-2 text-gray-800">{title}</h3>
-        <p className="text-gray-600 mb-4">{children}</p>
+        <h3 className={`font-semibold text-xl mb-2 text-${theme.palette.text}`}>{title}</h3>
+        <p className={`text-${theme.palette.text} mb-4`}>{children}</p>
         {footer && (
-          <div className="mt-4 pt-4 border-t border-gray-200">{footer}</div>
+          <div className={`mt-4 pt-4 border-t border-${theme.palette.text}`}>{footer}</div>
         )}
       </div>
     </div>

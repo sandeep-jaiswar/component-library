@@ -1,6 +1,7 @@
 import React from "react";
+import { useTheme } from "../hooks/useTheme";
 
-interface PaginationProps {
+export interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
@@ -13,6 +14,8 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   showFirstLast = true,
 }) => {
+  const theme = useTheme();
+
   const getPageNumbers = () => {
     const pageNumbers = [];
     const maxPagesToShow = 5;
@@ -39,6 +42,20 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const pageNumbers = getPageNumbers();
 
+  const buttonStyle = `
+    px-2 py-1 rounded-md text-sm font-medium
+    text-${theme.palette.text}
+    bg-${theme.palette.background}
+    hover:bg-${theme.palette.action.hover}
+    disabled:opacity-50 disabled:cursor-not-allowed
+  `;
+
+  const activeButtonStyle = `
+    px-3 py-1 rounded-md text-sm font-medium
+    bg-${theme.palette.primary}
+    text-${theme.palette.background}
+  `;
+
   return (
     <nav
       className="flex items-center justify-center space-x-1"
@@ -48,7 +65,8 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
-          className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className={buttonStyle}
+          style={{ borderRadius: `${theme.shape.borderRadius}px` }}
         >
           First
         </button>
@@ -56,7 +74,8 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={buttonStyle}
+        style={{ borderRadius: `${theme.shape.borderRadius}px` }}
       >
         Previous
       </button>
@@ -64,11 +83,8 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           key={number}
           onClick={() => onPageChange(number)}
-          className={`px-3 py-1 rounded-md text-sm font-medium ${
-            currentPage === number
-              ? "bg-blue-500 text-white"
-              : "text-gray-500 bg-white hover:bg-gray-50"
-          }`}
+          className={currentPage === number ? activeButtonStyle : buttonStyle}
+          style={{ borderRadius: `${theme.shape.borderRadius}px` }}
         >
           {number}
         </button>
@@ -76,7 +92,8 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={buttonStyle}
+        style={{ borderRadius: `${theme.shape.borderRadius}px` }}
       >
         Next
       </button>
@@ -84,7 +101,8 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(totalPages)}
           disabled={currentPage === totalPages}
-          className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className={buttonStyle}
+          style={{ borderRadius: `${theme.shape.borderRadius}px` }}
         >
           Last
         </button>

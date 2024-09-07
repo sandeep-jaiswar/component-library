@@ -1,5 +1,6 @@
 import React from 'react';
 import "../index.css";
+import { useTheme } from "../hooks/useTheme";
 
 export interface SpacerProps {
   size?: number | string;
@@ -8,6 +9,7 @@ export interface SpacerProps {
 }
 
 const Spacer: React.FC<SpacerProps> = ({ size = 1, axis = 'vertical', grow = false }) => {
+  const theme = useTheme();
   const width = axis === 'horizontal' ? size : 0;
   const height = axis === 'vertical' ? size : 0;
 
@@ -18,6 +20,7 @@ const Spacer: React.FC<SpacerProps> = ({ size = 1, axis = 'vertical', grow = fal
         height: typeof height === 'number' ? `${height * 0.25}rem` : height,
         flexGrow: grow ? 1 : 0,
         flexShrink: 0,
+        backgroundColor: theme.palette.background,
       }}
     />
   );

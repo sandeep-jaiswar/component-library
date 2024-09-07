@@ -3,27 +3,30 @@
 @tailwind utilities;
 
 @font-face {
-   font-family: 'Mona Sans';
-   src: url('./fonts/Mona Sans/Mona-Sans.ttf');
-   font-weight: normal;
-   font-style: normal;
+  font-family: "Mona Sans";
+  src: url("./fonts/Mona Sans/Mona-Sans.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-   font-family: 'Inter';
-   src: url('./fonts/Inter/Inter.ttf');
-   font-weight: normal;
-   font-style: normal;
+  font-family: "Inter";
+  src: url("./fonts/Inter/Inter.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Mona Sans', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Mona Sans", sans-serif;
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 }
-
-

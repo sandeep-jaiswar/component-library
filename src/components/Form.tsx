@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import { useTheme } from "../hooks/useTheme";
 
-interface FormField {
+export interface FormField {
   name: string;
   label: string;
   type: "text" | "email" | "password" | "textarea";
@@ -9,7 +10,7 @@ interface FormField {
   required?: boolean;
 }
 
-interface FormProps {
+export interface FormProps {
   fields: FormField[];
   onSubmit: (data: Record<string, string>) => void;
   submitLabel?: string;
@@ -21,6 +22,7 @@ const Form: React.FC<FormProps> = ({
   submitLabel = "Submit",
 }) => {
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const theme = useTheme();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,7 +42,7 @@ const Form: React.FC<FormProps> = ({
         <div key={field.name}>
           <label
             htmlFor={field.name}
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className={`block text-sm font-medium text-${theme.palette.text} mb-1`}
           >
             {field.label}
           </label>
@@ -52,8 +54,9 @@ const Form: React.FC<FormProps> = ({
               required={field.required}
               value={formData[field.name] || ""}
               onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className={`appearance-none block w-full px-3 py-2 border border-${theme.palette.text} rounded-md shadow-sm placeholder-${theme.palette.text} focus:outline-none focus:ring-${theme.palette.primary} focus:border-${theme.palette.primary} sm:text-sm bg-${theme.palette.background} text-${theme.palette.text}`}
               rows={4}
+              style={{ borderRadius: `${theme.shape.borderRadius}px` }}
             />
           ) : (
             <input
@@ -64,7 +67,8 @@ const Form: React.FC<FormProps> = ({
               required={field.required}
               value={formData[field.name] || ""}
               onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className={`appearance-none block w-full px-3 py-2 border border-${theme.palette.text} rounded-md shadow-sm placeholder-${theme.palette.text} focus:outline-none focus:ring-${theme.palette.primary} focus:border-${theme.palette.primary} sm:text-sm bg-${theme.palette.background} text-${theme.palette.text}`}
+              style={{ borderRadius: `${theme.shape.borderRadius}px` }}
             />
           )}
         </div>

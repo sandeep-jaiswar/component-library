@@ -1,7 +1,7 @@
 import React from "react";
-import "../index.css";
+import { useTheme } from "../hooks/useTheme";
 
-type AlertVariant = "info" | "success" | "warning" | "error";
+export type AlertVariant = "info" | "success" | "warning" | "error";
 
 export interface AlertProps {
   variant: AlertVariant;
@@ -11,11 +11,13 @@ export interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = ({ variant, title, message, onClose }) => {
+  const theme = useTheme();
+
   const variantClasses = {
-    info: "bg-blue-100 text-blue-800 border-blue-500",
-    success: "bg-green-100 text-green-800 border-green-500",
-    warning: "bg-yellow-100 text-yellow-800 border-yellow-500",
-    error: "bg-red-100 text-red-800 border-red-500",
+    info: `bg-${theme.palette.info} text-${theme.palette.text} border-${theme.palette.info}`,
+    success: `bg-${theme.palette.success} text-${theme.palette.text} border-${theme.palette.success}`,
+    warning: `bg-${theme.palette.warning} text-${theme.palette.text} border-${theme.palette.warning}`,
+    error: `bg-${theme.palette.error} text-${theme.palette.text} border-${theme.palette.error}`,
   };
 
   const iconMap = {
@@ -58,22 +60,39 @@ const Alert: React.FC<AlertProps> = ({ variant, title, message, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 px-4 pb-4 sm:px-6 sm:pb-6">
+    <div className={`fixed inset-x-0 bottom-0 px-4 pb-4 sm:px-6 sm:pb-6`}>
       <div
         className={`max-w-md w-full mx-auto ${variantClasses[variant]} border-l-4 rounded-md shadow-md`}
+        style={{ borderRadius: `${theme.shape.borderRadius}px` }}
       >
         <div className="p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">{iconMap[variant]}</div>
             <div className="ml-3 w-0 flex-1">
-              <p className="text-sm font-medium">{title}</p>
-              {message && <p className="mt-1 text-sm opacity-90">{message}</p>}
+              <p
+                className={`text-sm font-medium`}
+                style={theme.typography.subtitle1}
+              >
+                {title}
+              </p>
+              {message && (
+                <p
+                  className={`mt-1 text-sm opacity-90`}
+                  style={theme.typography.body2}
+                >
+                  {message}
+                </p>
+              )}
             </div>
             {onClose && (
               <div className="ml-4 flex-shrink-0 flex">
                 <button
-                  className="inline-flex text-current opacity-75 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current rounded transition-opacity duration-150"
+                  className={`inline-flex text-current opacity-75 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${theme.palette.primary} rounded transition-opacity duration-150`}
                   onClick={onClose}
+                  style={{
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    transition: `opacity ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut}`,
+                  }}
                 >
                   <span className="sr-only">Close</span>
                   <svg

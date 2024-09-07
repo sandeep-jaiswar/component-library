@@ -1,5 +1,7 @@
 import React, { InputHTMLAttributes, useState } from "react";
 import "../index.css";
+import { useTheme } from "../hooks/useTheme";
+
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
@@ -8,6 +10,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
+  const theme = useTheme();
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -26,26 +29,27 @@ const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
       <div className="relative">
         <input
           className={`
-            w-full px-4 py-3 text-base bg-gray-100 border-b-2 focus:outline-none transition-colors duration-200
-            ${error ? "border-red-500" : "border-gray-300"}
-            ${error ? "focus:border-red-500" : "focus:border-blue-500"}
+            w-full px-4 py-3 text-base bg-${theme.palette.background} border-b-2 focus:outline-none transition-colors duration-200
+            ${error ? `border-${theme.palette.error}` : `border-${theme.palette.text}`}
+            ${error ? `focus:border-${theme.palette.error}` : `focus:border-${theme.palette.primary}`}
           `}
           placeholder=" "
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
+          style={{ borderRadius: `${theme.shape.borderRadius}px` }}
           {...props}
         />
         <label
           className={`
-            absolute left-4 text-gray-500 transition-all duration-200 pointer-events-none
-            ${(isFocused || hasValue) ? "text-xs top-0 text-blue-500" : "top-3"}
+            absolute left-4 text-${theme.palette.text} transition-all duration-200 pointer-events-none
+            ${(isFocused || hasValue) ? `text-xs top-0 text-${theme.palette.primary}` : "top-3"}
           `}
         >
           {label}
         </label>
       </div>
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {error && <p className={`mt-1 text-sm text-${theme.palette.error}`}>{error}</p>}
     </div>
   );
 };

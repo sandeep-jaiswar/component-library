@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
+import { useTheme } from "../hooks/useTheme";
 
 export interface DatePickerProps {
   onChange: (date: Date) => void;
@@ -11,6 +12,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   initialDate = new Date(),
 }) => {
   const [selectedDate, setSelectedDate] = useState(initialDate);
+  const theme = useTheme();
 
   const years = Array.from(
     { length: 50 },
@@ -44,10 +46,19 @@ const DatePicker: React.FC<DatePickerProps> = ({
     setSelectedDate(newDate);
   };
 
+  const selectStyle = `
+    appearance-none bg-transparent text-center text-xl focus:outline-none
+    text-${theme.palette.text} hover:text-${theme.palette.primary}
+    transition-colors duration-200
+  `;
+
   return (
-    <div className="flex space-x-4 bg-gray-100 p-4 rounded-lg">
+    <div 
+      className={`flex space-x-4 bg-${theme.palette.background} p-4 rounded-lg`}
+      style={{ borderRadius: `${theme.shape.borderRadius}px` }}
+    >
       <select
-        className="appearance-none bg-transparent text-center text-xl focus:outline-none"
+        className={selectStyle}
         value={selectedDate.getFullYear()}
         onChange={(e) => handleChange("year", parseInt(e.target.value))}
       >
@@ -58,7 +69,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         ))}
       </select>
       <select
-        className="appearance-none bg-transparent text-center text-xl focus:outline-none"
+        className={selectStyle}
         value={selectedDate.getMonth()}
         onChange={(e) => handleChange("month", parseInt(e.target.value))}
       >
@@ -69,7 +80,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         ))}
       </select>
       <select
-        className="appearance-none bg-transparent text-center text-xl focus:outline-none"
+        className={selectStyle}
         value={selectedDate.getDate()}
         onChange={(e) => handleChange("day", parseInt(e.target.value))}
       >

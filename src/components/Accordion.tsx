@@ -1,24 +1,28 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../hooks/useTheme";
 
-interface AccordionItem {
+export interface AccordionItem {
   id: string;
   title: string;
   content: React.ReactNode;
 }
 
-interface AccordionProps {
+export interface AccordionProps {
   items: AccordionItem[];
   allowMultiple?: boolean;
   className?: string;
+  onToggle?: (id: string, isOpen: boolean) => void;
 }
 
 const Accordion: React.FC<AccordionProps> = ({
   items,
   allowMultiple = false,
   className = "",
+  onToggle,
 }) => {
   const [openIds, setOpenIds] = useState<string[]>([]);
+  const theme = useTheme();
 
   const toggleItem = useCallback((id: string) => {
     setOpenIds((prevIds) => {
@@ -30,7 +34,8 @@ const Accordion: React.FC<AccordionProps> = ({
         return prevIds.includes(id) ? [] : [id];
       }
     });
-  }, [allowMultiple]);
+    onToggle?.(id, !openIds.includes(id));
+  }, [allowMultiple, onToggle, openIds]);
 
   const isOpen = useCallback((id: string) => openIds.includes(id), [openIds]);
 
@@ -40,35 +45,37 @@ const Accordion: React.FC<AccordionProps> = ({
       item={item}
       isOpen={isOpen(item.id)}
       toggleItem={toggleItem}
+      theme={theme}
     />
-  )), [items, isOpen, toggleItem]);
+  )), [items, isOpen, toggleItem, theme]);
 
   return (
-    <div className={`divide-y divide-gray-200 border-t border-b border-gray-200 ${className}`}>
+    <div className={`divide-y divide-${theme.palette.text} border-t border-b border-${theme.palette.text} ${className}`}>
       {accordionItems}
     </div>
   );
 };
 
-interface AccordionItemProps {
+export interface AccordionItemProps {
   item: AccordionItem;
   isOpen: boolean;
   toggleItem: (id: string) => void;
+  theme: any;
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = React.memo(({ item, isOpen, toggleItem }) => {
+const AccordionItem: React.FC<AccordionItemProps> = React.memo(({ item, isOpen, toggleItem, theme }) => {
   return (
     <div className="py-2">
       <button
-        className="flex justify-between items-center w-full py-3 px-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+        className={`flex justify-between items-center w-full py-3 px-4 text-left focus:outline-none focus:ring-2 focus:ring-${theme.palette.primary} rounded-lg`}
         onClick={() => toggleItem(item.id)}
         aria-expanded={isOpen}
       >
-        <span className="text-base font-medium text-gray-900">
+        <span className={`text-base font-medium text-${theme.palette.text}`}>
           {item.title}
         </span>
         <motion.svg
-          className="w-5 h-5 text-gray-500"
+          className={`w-5 h-5 text-${theme.palette.text}`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
@@ -89,7 +96,7 @@ const AccordionItem: React.FC<AccordionItemProps> = React.memo(({ item, isOpen, 
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="px-4 pt-2 pb-4 text-sm text-gray-700 overflow-hidden"
+            className={`px-4 pt-2 pb-4 text-sm text-${theme.palette.text} overflow-hidden`}
           >
             {item.content}
           </motion.div>
