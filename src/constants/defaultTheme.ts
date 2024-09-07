@@ -21,7 +21,7 @@ const defaultTheme: Theme = {
     },
   },
   typography: {
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "Inter, sans-serif",
     fontSize: {
       small: "0.8rem",
       medium: "1rem",
